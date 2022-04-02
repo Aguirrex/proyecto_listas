@@ -203,7 +203,7 @@ void AdicionarVuelo(DatosVuelo &Vuelos)
     aux->sgte = Vuelos;
 	Vuelos = aux;
 
-    cout<<"\n\n\tPasajero agregado con exito...";
+    cout<<"\n\n\tVuelo agregado con exito...";
     getchar();
     return;
 }
@@ -278,26 +278,8 @@ void AdicionarPasajero(DatosVuelo &Vuelos)
     }
 
     if(!agregado)
-        cout<<"\n\nNumero de vuelo no existente...";
+        cout<<"\n\n\tNumero de vuelo no existente...";
     return;
-}
-
-
-
-void menu()
-{
-    cout<<"\n\t REGISTRO YALITAZ AIRLINES\n\n";
-    cout<<"0. SALIR                                         "<<endl;
-    cout<<"1. ADICIONAR VUELO                               "<<endl;
-    cout<<"2. ADICIONAR PASAJERO                            "<<endl;
-    cout<<"3. LISTADO PASAJEROS DE UN VUELO                 "<<endl;
-    cout<<"4. LISTADO VUELOS PROGRAMADOS                    "<<endl;
-    cout<<"5. LISTADO VUELOS REALIZADOS                     "<<endl;
-    cout<<"6. LISTADO VUELOS PROGRAMADOS DE UNA PERSONA     "<<endl;
-    cout<<"7. LISTADO VUELOS REALIZADOS DE UNA PERSONA      "<<endl;
-    cout<<"8. REALIZAR VUELO                                "<<endl;
-    cout<<"9. PASAR A BORDO A UN PASAJERO                   "<<endl;
-    cout<<"\n INGRESE OPCION: ";
 }
 
 void RealizaVuelo(DatosVuelo &Vuelos)
@@ -322,6 +304,8 @@ void RealizaVuelo(DatosVuelo &Vuelos)
         }
         aux = aux->sgte;
     }
+    if(!realizado)
+        cout<<"\n\n\tVuelo no existente...";
     return;
 }
 
@@ -348,43 +332,81 @@ void EstadoP(DatosVuelo &Vuelos)
             {   
                 cout<<"Nombre del pasajero: "<<aux2->nombre;
                 cout<<"\n\nDesea pasar al pasajero a bordo?\n\n1.Si\n2.No\nEscriba una opcion: ";
-                cin>>op; 
-                if(aux2->estado == 1)
+                cin>>op;
+                if(op == 1)
                 {
-                    aux2->estado = 2;
-                    cout<<"\n\nEl estado del pasajero ha sido cambiado a 'A bordo'";
-                }
-                else if(aux2->estado == 2)
-                    cout<<"\n\nEl pasajero ha pasado a bordo...";
-                else if(aux2->estado == 3)
-                    cout<<"\n\nEl pasajero ya ha perdido el vuelo...";
-
+                    if(aux2->estado == 1)
+                    {
+                        aux2->estado = 2;
+                        cout<<"\n\nEl estado del pasajero ha sido cambiado a 'A bordo'";
+                    }
+                    else if(aux2->estado == 2)
+                        cout<<"\n\nEl pasajero ya habia pasado a bordo...";
+                    else if(aux2->estado == 3)
+                        cout<<"\n\nEl pasajero ya ha perdido el vuelo...";
+                }else if(op == 2)
+                    cout<<"\n\n\tBueno ❤️";
+                else
+                    cout<<"\n\n\tEsa opcion no estaba...";
                 realizado = true;
             }
             aux2 = aux2->sgte;
         }
         aux = aux->sgte;
     }
+    if(!realizado)
+        cout<<"\n\n\tNumero de cedula del pasajero o numero no de vuelo no coinciden...";
+
     return;
+}
+
+void menu()
+{
+    cout<<"\n\t REGISTRO YALITAZ AIRLINES\n\n";
+    cout<<"0. SALIR                                         "<<endl;
+    cout<<"1. ADICIONAR VUELO                               "<<endl;
+    cout<<"2. ADICIONAR PASAJERO                            "<<endl;
+    cout<<"3. LISTADO PASAJEROS DE UN VUELO                 "<<endl;
+    cout<<"4. LISTADO VUELOS PROGRAMADOS                    "<<endl;
+    cout<<"5. LISTADO VUELOS REALIZADOS                     "<<endl;
+    cout<<"6. LISTADO VUELOS PROGRAMADOS DE UNA PERSONA     "<<endl;
+    cout<<"7. LISTADO VUELOS REALIZADOS DE UNA PERSONA      "<<endl;
+    cout<<"8. REALIZAR VUELO                                "<<endl;
+    cout<<"9. PASAR A BORDO A UN PASAJERO                   "<<endl;
+    cout<<"\n INGRESE OPCION: ";
 }
 
 int main()
 {
     DatosVuelo Vuelos = NULL;
     leerArchivo(Vuelos);
-
+    char opc[20];
     int op = 0;
     system("color 0b");
     do
     {
-        menu(); //llama a la funcion menu para que lo imprima en pantalla
-        cin>> op; //recibe un numero que ingrese el usuario y lo asigna a op
+        system("color 0b");
+        menu();
+        cin>>opc;
+        while(strcmp(opc,"0") != 0 && strcmp(opc,"1") != 0 && strcmp(opc,"2") != 0 && strcmp(opc,"3") != 0 && strcmp(opc,"4") != 0 && strcmp(opc,"5") != 0 && strcmp(opc,"6") != 0 && strcmp(opc,"7") != 0 && strcmp(opc,"8") != 0 && strcmp(opc,"9") != 0 )
+        {
+            cout<<"\n\n OPCION NO VALIDA...";
+            cout<<"\n INGRESE OPCION: ";
+            cin>>opc;
+        }
+        op = atoi(opc);
         switch(op)//switch que funciona con "op"
         {
+            case 0:
+                system("color 4B");
+                cout<<"\n\n\t\t\t\tCHAO BB";
+                break;
             case 1:
+                system("color 70");
                 AdicionarVuelo(Vuelos);
                 break;
             case 2:
+                system("color 4E");
                 AdicionarPasajero(Vuelos);
                 break;
             case 3:
@@ -398,9 +420,11 @@ int main()
             case 7:
                 break;
             case 8:
+                system("color 5F");
                 RealizaVuelo(Vuelos);
                 break;
             case 9:
+                system("color 2E");
                 EstadoP(Vuelos);
                 break;
         }
