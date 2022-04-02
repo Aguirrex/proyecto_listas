@@ -433,5 +433,4 @@ int main()
         system("cls");//borra lo que hay en pantalla
     }while(op!=0);//el do seguira en loop hasta que el usuario digite la opcion 0
     return 0;
-    return 0;
 }
